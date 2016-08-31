@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Folders and Files
+.idea/
+META-INF/
+out/
+Release/
+Release.zip
+SCGui.iml

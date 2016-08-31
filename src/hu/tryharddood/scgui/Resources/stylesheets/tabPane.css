@@ -1,0 +1,21 @@
+.jfx-tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: white;
+}
+
+.jfx-tab-pane .tab-header-area .tab-label {
+    -fx-text-fill: black;
+    -fx-font-weight: 200;
+    -fx-font-size: 15px;
+}
+
+.jfx-tab-pane .tab-header-area {
+    -fx-background-color: white;
+}
+
+.jfx-tab-pane .tab-header-area .jfx-rippler {
+    -fx-rippler-fill: #009ACD;
+}
+
+.jfx-tab-pane .tab-header-area .tab-selected-line {
+    -fx-stroke: #009ACD;
+}

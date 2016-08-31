@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?><?import javafx.scene.control.Label?><?import javafx.scene.layout.*?><?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx = "http://javafx.com/fxml/1" maxHeight = "-Infinity" maxWidth = "-Infinity" minHeight = "-Infinity"
+            minWidth = "-Infinity" prefHeight = "377.0" prefWidth = "600.0" xmlns = "http://javafx.com/javafx/8.0.102"
+            fx:controller = "hu.tryharddood.scgui.Controllers.ManageServersController">
+    <children>
+        <JFXComboBox fx:id = "_manageSelectServer" layoutX = "155.0" layoutY = "69.0" prefHeight = "35.0"
+                     prefWidth = "290.0" AnchorPane.leftAnchor = "155.0" AnchorPane.topAnchor = "69.0" />
+        <JFXTextField fx:id = "_manageServerAddress" layoutX = "36.0" layoutY = "152.0" maxWidth = "275.0"
+                      minWidth = "216.0" prefHeight = "35.0" prefWidth = "275.0" promptText = "Server Address"
+                      AnchorPane.leftAnchor = "36.0" AnchorPane.topAnchor = "152.0">
+            <font>
+                <Font size = "13.0" />
+            </font>
+        </JFXTextField>
+        <JFXPasswordField fx:id = "_manageRconPassword" layoutX = "36.0" layoutY = "214.0" maxWidth = "275.0"
+                          minWidth = "216.0" prefHeight = "35.0" prefWidth = "275.0" promptText = "RCON Password"
+                          AnchorPane.leftAnchor = "36.0" AnchorPane.topAnchor = "214.0">
+            <font>
+                <Font size = "13.0" />
+            </font>
+        </JFXPasswordField>
+        <JFXButton fx:id = "_manageSaveButton" layoutX = "213.0" layoutY = "328.0" onAction = "#onActionSaveEvent"
+                   prefHeight = "35.0" prefWidth = "175.0" text = "Save" AnchorPane.leftAnchor = "213.0"
+                   AnchorPane.topAnchor = "328.0">
+            <font>
+                <Font size = "13.0" />
+            </font>
+        </JFXButton>
+        <JFXCheckBox fx:id = "_manageSavePassword" layoutX = "350.0" layoutY = "178.0" prefHeight = "17.0"
+                     prefWidth = "152.0" text = "Save Password" AnchorPane.rightAnchor = "98.0"
+                     AnchorPane.topAnchor = "222.0">
+            <font>
+                <Font size = "13.0" />
+            </font>
+        </JFXCheckBox>
+        <JFXCheckBox fx:id = "_manageNotifyAdmin" layoutX = "350.0" layoutY = "179.0" prefHeight = "17.0"
+                     prefWidth = "152.0" text = "Show admin alerts" AnchorPane.rightAnchor = "98.0"
+                     AnchorPane.topAnchor = "179.0">
+            <font>
+                <Font size = "13.0" />
+            </font>
+        </JFXCheckBox>
+        <Label fx:id = "_manageServerLabel" layoutX = "155.0" layoutY = "50.0" text = "Select a server"
+               AnchorPane.leftAnchor = "155.0" AnchorPane.topAnchor = "50.0">
+            <font>
+                <Font size = "13.0" />
+            </font>
+        </Label>
+        <JFXComboBox fx:id = "_manageServerType" layoutX = "156.0" layoutY = "285.0" prefHeight = "35.0"
+                     prefWidth = "290.0" AnchorPane.leftAnchor = "156.0" AnchorPane.topAnchor = "285.0" />
+        <Label layoutX = "155.0" layoutY = "266.0" text = "Server type" AnchorPane.topAnchor = "266.0">
+            <font>
+                <Font size = "13.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
