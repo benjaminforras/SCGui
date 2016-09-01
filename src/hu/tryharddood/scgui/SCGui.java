@@ -51,7 +51,6 @@ public class SCGui extends Application {
 
 	public static void main(String[] args) throws InterruptedException {
 		LauncherImpl.launchApplication(SCGui.class, PreloaderClass.class, args);
-		//launch(args);
 	}
 
 	public static void showAdminAlert(String player, String message) {
