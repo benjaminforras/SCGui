@@ -245,8 +245,6 @@ public class MainController {
 			_playersTableColumnPing.setCellValueFactory(
 					new PropertyValueFactory<>("ping")
 			);
-
-			_playersTableView.getItems().add(new Player(12, "Dummy", "DummyID", "DummyIP", 15, "DummyTime", 50));
 		}
 
 		_consoleTextFlow.heightProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) ->

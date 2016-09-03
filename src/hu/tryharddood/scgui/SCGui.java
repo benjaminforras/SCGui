@@ -33,7 +33,7 @@ public class SCGui extends Application {
 
 	public static Stage mainStage; //:)
 
-	public static String VERSION = "1.0-SNAPSHOT";
+	public static String VERSION = "1.01";
 
 	public static MainController mainController;
 	public static Settings       settings;
