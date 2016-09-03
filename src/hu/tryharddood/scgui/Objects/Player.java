@@ -1,7 +1,14 @@
 package hu.tryharddood.scgui.Objects;
 
+import com.github.koraktor.steamcondenser.exceptions.SteamCondenserException;
+import hu.tryharddood.scgui.SCGui;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import java.util.concurrent.TimeoutException;
+
+import static hu.tryharddood.scgui.Logger.Console.Prefix.ERROR;
+import static hu.tryharddood.scgui.Logger.Console.Prefix.INFO;
 
 /*****************************************************
  *              Created by TryHardDood on 2016. 08. 18..
@@ -83,5 +90,30 @@ public class Player {
 
 	public SimpleIntegerProperty pingProperty() {
 		return ping;
+	}
+
+	public void kickPlayer(Server server) {
+		SCGui.getLogger().println(INFO, "Trying to kick player " + getName());
+		try
+		{
+			server.rconExec("kick \"" + getName() + "\"");
+		} catch (TimeoutException | SteamCondenserException e)
+		{
+			SCGui.getLogger().println(ERROR, "Couldn't kick player " + getName());
+			e.printStackTrace();
+		}
+	}
+
+	public void banPlayer(Server server, String s) {
+
+		SCGui.getLogger().println(INFO, "Trying to ban player " + getName());
+		try
+		{
+			server.rconExec("banid " + Integer.valueOf(s) + " \"" + getSteamid() + "\"");
+		} catch (TimeoutException | SteamCondenserException e)
+		{
+			SCGui.getLogger().println(ERROR, "Couldn't ban player " + getName());
+			e.printStackTrace();
+		}
 	}
 }

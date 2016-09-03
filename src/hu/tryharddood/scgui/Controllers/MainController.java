@@ -15,6 +15,7 @@ import hu.tryharddood.scgui.SCGui;
 import hu.tryharddood.scgui.TextUtils;
 import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -25,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -152,6 +154,76 @@ public class MainController {
 		{
 			_playersTableView.setOnMouseClicked(event -> _playersTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE));
 
+			_playersTableView.setRowFactory(tableView ->
+			{
+				final TableRow<Player> row          = new TableRow<>();
+				final ContextMenu      contextMenu  = new ContextMenu();
+
+				final MenuItem         kickMenuItem = new MenuItem("Kick player");
+				final MenuItem         banMenuItem  = new MenuItem("Ban player");
+
+
+				kickMenuItem.setOnAction(event ->
+				{
+					if(server == null)
+					{
+						return;
+					}
+
+					Player player = row.getItem();
+
+					Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+					alert.setTitle("Kick player");
+					alert.setHeaderText("Are you sure?");
+					alert.setContentText("Kick player: " + player.getName() + "?");
+
+					Optional<ButtonType> result = alert.showAndWait();
+					if (result.get() == ButtonType.OK)
+					{
+						player.kickPlayer(server);
+					}
+				});
+
+				banMenuItem.setOnAction(event ->
+				{
+					if(server == null)
+					{
+						return;
+					}
+
+					Player player = row.getItem();
+
+					Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+					alert.setTitle("Ban player");
+					alert.setHeaderText("Are you sure?");
+					alert.setContentText("Ban player: " + player.getName() + "?");
+
+					Optional<ButtonType> result = alert.showAndWait();
+					if (result.get() == ButtonType.OK)
+					{
+						TextInputDialog dialog = new TextInputDialog();
+						dialog.setTitle("Ban player");
+						dialog.setHeaderText("Ban player: " + player.getName());
+						dialog.setContentText("Please enter the ban lenght (if value is 0 means permanently )");
+
+						Optional<String> banLenght = dialog.showAndWait();
+						if (result.isPresent())
+						{
+							player.banPlayer(server, banLenght.get());
+						}
+					}
+				});
+				contextMenu.getItems().addAll(kickMenuItem, banMenuItem);
+
+				row.contextMenuProperty().bind(
+						Bindings.when(row.emptyProperty())
+								.then((ContextMenu) null)
+								.otherwise(contextMenu)
+				);
+				return row;
+			});
+
+
 			_playersTableColumnUserID.setCellValueFactory(
 					new PropertyValueFactory<>("userid")
 			);
@@ -173,6 +245,8 @@ public class MainController {
 			_playersTableColumnPing.setCellValueFactory(
 					new PropertyValueFactory<>("ping")
 			);
+
+			_playersTableView.getItems().add(new Player(12, "Dummy", "DummyID", "DummyIP", 15, "DummyTime", 50));
 		}
 
 		_consoleTextFlow.heightProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) ->
@@ -400,8 +474,8 @@ public class MainController {
 						SCGui.getLogger().println(ERROR, e.getMessage());
 					}
 
-					SCGui.runningTasks.add(SCGui.executorService.scheduleAtFixedRate(new PlayersTask(server), 5, 10, TimeUnit.SECONDS));
-					SCGui.runningTasks.add(SCGui.executorService.scheduleAtFixedRate(new ServerInformationTask(server), 10, 15, TimeUnit.SECONDS));
+					SCGui.runningTasks.add(SCGui.executorService.scheduleAtFixedRate(new PlayersTask(server), 1, 10, TimeUnit.SECONDS));
+					SCGui.runningTasks.add(SCGui.executorService.scheduleAtFixedRate(new ServerInformationTask(server), 2, 15, TimeUnit.SECONDS));
 					SCGui.runningTasks.add(SCGui.executorService.scheduleAtFixedRate(new RconTask(server), 120, 120, TimeUnit.SECONDS));
 					_actionStartStopButton.setDisable(false);
 				}

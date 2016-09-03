@@ -43,23 +43,21 @@ public class ServerInformationTask implements Runnable {
 		{
 			HashMap<String, Object> data = _server.getServerInfo();
 
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-					mainController._informationServerName.setText(data.get("serverName").toString());
-					mainController._informationServerIP.setText(_server.getIPAddress().split(":")[0]);
-					mainController._informationServerPort.setText(data.get("serverPort").toString());
-					mainController._informationServerPlayers.setText(data.get("numberOfPlayers").toString() + "/" + data.get("maxPlayers").toString());
-					mainController._informationServerMapName.setText(data.get("mapName").toString());
+			Platform.runLater(() ->
+			{
+				mainController._informationServerName.setText(data.get("serverName").toString());
+				mainController._informationServerIP.setText(_server.getIPAddress().split(":")[0]);
+				mainController._informationServerPort.setText(data.get("serverPort").toString());
+				mainController._informationServerPlayers.setText(data.get("numberOfPlayers").toString() + "/" + data.get("maxPlayers").toString());
+				mainController._informationServerMapName.setText(data.get("mapName").toString());
 
-					Image       image;
-					InputStream is = getClass().getResourceAsStream("/maps/" + data.get("gameDir") + "/" + data.get("mapName") + ".jpg");
-					if (is == null)
-						image = new Image(SCGui.class.getResource("/hu/tryharddood/scgui/Resources/maps/no-image-available.jpg").toString());
-					else image = new Image(is);
+				Image       image;
+				InputStream is = SCGui.class.getResourceAsStream("/hu/tryharddood/scgui/Resources/maps/" + data.get("gameDir") + "/" + data.get("mapName") + ".jpg");
+				if (is == null)
+					image = new Image(SCGui.class.getResource("/hu/tryharddood/scgui/Resources/maps/no-image-available.jpg").toString());
+				else image = new Image(is);
 
-					mainController._serverMapImage.setImage(image);
-				}
+				mainController._serverMapImage.setImage(image);
 			});
 		} catch (SteamCondenserException | TimeoutException e)
 		{
